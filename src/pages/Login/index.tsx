@@ -51,6 +51,13 @@ const LoginPage = () => {
           handelSubmit={handleLogin}
           passwordRegex={passwordRegex}
         />
+        <p
+          className={styles.titleContainer}
+          onClick={() => nav("/intro")}
+          style={{ cursor: "pointer", color: "#7B68EE", textDecoration: "underline" }}
+        >
+          🚀 More About Us
+        </p>
       </div>
     </Layout>
   );

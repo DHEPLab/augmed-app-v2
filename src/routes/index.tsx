@@ -4,6 +4,7 @@ import { Navigate, Outlet, RouteObject } from "react-router-dom";
 import path from "./path";
 import Home from "../pages/Home";
 import LoginPage from "../pages/Login";
+import IntroPage from "../pages/Intro";
 import SignUpPage from "../pages/SignUp";
 import withCredencial from "../components/withCredencial";
 import CasePage from "../pages/Case";
@@ -40,6 +41,10 @@ const routes: RouteObject[] = [
   {
     path: path.login,
     element: <LoginPage />,
+  },
+  {
+    path: path.intro,
+    element: <IntroPage />,
   },
   {
     path: path.signup,
