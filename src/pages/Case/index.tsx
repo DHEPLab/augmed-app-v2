@@ -39,7 +39,7 @@ const NestedContent = ({ data, level, important = false }: { data: TreeNode; lev
   return (
     <>
       {(data.values as TreeNode[]).map((item, index) => {
-        return <NestedSection data={item} key={index} level={level + 1} important={important}></NestedSection>;
+        return <NestedSection data={item} key={index} level={level + 1} important={important} />;
       })}
     </>
   );
@@ -113,7 +113,11 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
       data-testid={data.key}
       className={classnames(styles.card, { [styles.highlightContent]: highlight }, { [styles.firstCard]: index === 0 })}
     >
-      <div className={classnames(styles.subTitle, { [styles.subTitleHighlight]: highlight })}>
+      <div
+        className={classnames(styles.subTitle, {
+          [styles.subTitleHighlight]: highlight,
+        })}
+      >
         {data.key}
         {data.style?.collapse && (
           <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
@@ -135,9 +139,11 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   return (
     <div style={style} className={styles.container} data-testid={data.key}>
       <div className={`${styles.title}`}>{data.key}</div>
-      {(data.values as TreeNode[]).map((item, index) => (
-        <Card data={item} key={index} index={index}></Card>
-      ))}
+      {(data.values as TreeNode[])
+        .filter((item) => item.key !== "CRC risk assessments")
+        .map((item, idx) => (
+          <Card data={item} key={idx} index={idx} />
+        ))}
     </div>
   );
 };
@@ -166,6 +172,7 @@ const CasePage = () => {
   const { loading, data } = useRequest(() => getCaseDetail(caseConfigId));
   const response = data?.data;
   const [caseState, setCaseState] = useAtom(caseAtom);
+
   useEffect(() => {
     setCaseState({
       caseNumber: response?.data.caseNumber,
@@ -185,8 +192,8 @@ const CasePage = () => {
             {response.data.importantInfos && response.data.importantInfos.length > 0 && (
               <ImportantCard data={response.data.importantInfos} />
             )}
-            {(response.data.details as TreeNode[]).map((item, index) => (
-              <Section data={item} key={index} index={index}></Section>
+            {(response.data.details as TreeNode[]).map((item, idx) => (
+              <Section data={item} key={idx} index={idx} />
             ))}
             <div className={styles.submitDiv}>
               <Button
