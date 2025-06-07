@@ -3,6 +3,10 @@
   src: url("./assets/fonts/Lato-Regular.ttf") format("truetype");
 }
 
+:root {
+  --font-sans: 'Lato', serif, -apple-system, BlinkMacSystemFont,
+}
+
 body {
   margin: 0;
   padding: 0;

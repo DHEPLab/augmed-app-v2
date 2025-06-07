@@ -54,13 +54,14 @@ function DarkModeToggle({
         borderRadius: "50%",
         backgroundColor: isDark
           ? theme.palette.grey[800]
-          : theme.palette.grey[200],
+          : "#fff",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
         color: isDark ? "#fff" : theme.palette.text.primary,
         transition: "background-color 0.3s",
         "&:hover": {
           backgroundColor: isDark
             ? theme.palette.grey[700]
-            : theme.palette.grey[300],
+            : "#f0f0f0",
         },
       }}
     >

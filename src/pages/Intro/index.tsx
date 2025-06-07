@@ -53,13 +53,13 @@ const IntroPage = () => {
             🔹 Secure, encrypted servers store all information
           </p>
 
-          <p
-            className={styles.subtitle}
+          <button
+            type="button"
+            className={styles.backButton}
             onClick={() => nav("/login")}
-            style={{ cursor: "pointer", color: "#6082B6", textDecoration: "underline" }}
           >
             🔙 Back to Log In Page
-          </p>
+          </button>
         </div>
       </div>
     </Layout>
