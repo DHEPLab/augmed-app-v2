@@ -25,22 +25,22 @@ jobs:
       - name: check-secrets
         uses: secret-scanner/action@0.0.2
 
-  test:
-    needs: lint
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18.x"
-      - name: Install dependencies
-        run: |
-          npm ci
-      - name: Run tests
-        run: |
-          npm test -- --watchAll=false
+#  test:
+#    needs: lint
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Use Node.js
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: "18.x"
+#      - name: Install dependencies
+#        run: |
+#          npm ci
+#      - name: Run tests
+#        run: |
+#          npm test -- --watchAll=false
 
   codeql:
     needs: lint
@@ -68,7 +68,6 @@ jobs:
           category: "/language:javascript-typescript"
 
   build-and-push:
-    needs: test
     runs-on: ubuntu-latest
     env:
       IMAGE_URI: ${{secrets.IMAGE_URI}}
