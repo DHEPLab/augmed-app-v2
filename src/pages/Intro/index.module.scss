@@ -40,6 +40,29 @@
       color: #6082b6;
       text-decoration: underline;
     }
+
+    .backButton {
+      align-self: center;
+      font-family: var(--font-sans);
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      background-color: #6082B6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: darken(#6082B6, 10%);
+      }
+      &:focus {
+        outline: 2px solid #375a8a;
+        outline-offset: 2px;
+      }
+    }
   }
 }
 
@@ -74,6 +97,19 @@
       }
       .subtitle:last-child {
         color: #80cbc4;
+      }
+    }
+
+    .backButton {
+      background-color: #80cbc4;
+      color: #121212;
+      font-family: var(--font-sans);
+
+      &:hover {
+        background-color: darken(#80cbc4, 10%);
+      }
+      &:focus {
+        outline-color: #4f9e94;
       }
     }
   }
