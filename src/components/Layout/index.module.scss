@@ -2,15 +2,14 @@ $mobile-point: 576px;
 
 .layout {
   height: 100%;
-  background-color: #fff;
   overflow: hidden auto;
   min-width: 320px;
+  transition: background-color 0.3s, color 0.3s;
 
-  &.m{
+  &.m {
     @media screen and (min-width: $mobile-point) {
       max-width: $mobile-point;
       margin: 0 auto;
     }
   }
-  
 }

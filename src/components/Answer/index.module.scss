@@ -1,23 +1,42 @@
 .diagnosis {
     padding: 1rem;
     border-radius: 14px;
-    background: #EDF6F3;
+    background: #edf6f3;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 
+    .label {
+        color: #303230 !important;
+        font-size: 0.8rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        letter-spacing: 0.55px;
+
+        .low { text-align: left; }
+        .high { float: right; }
+    }
+}
+
+:global(body.dark-mode) {
+    .diagnosis {
+        background: #2a2a2a;
+        color: #e0e0e0;
 
         .label {
-            color: #303230;
-            font-size: 0.8rem;
-            font-weight: 500;
-            line-height: 1.5rem;
-            letter-spacing: 0.55px;
+            color: #e0e0e0 !important;
+        }
 
-            .low {
-                text-align: left;
-            }   
+        :global(.MuiFormControlLabel-label) {
+            color: #ffffff !important;
+        }
 
-            .high {
-                float: right;
-            }
+        :global(.MuiTypography-root) {
+            color: #ffffff !important;
+        }
+
+        :global(.MuiRadio-root, .MuiCheckbox-root) {
+            color: #ffffff !important;
         }
     }
-
+}

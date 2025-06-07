@@ -1,6 +1,9 @@
 .app {
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+  height: 100vh;
 
   .titleContainer {
     margin-top: 30px;
@@ -32,12 +35,17 @@
       align-self: center;
     }
 
+    .subtitle:last-child {
+      cursor: pointer;
+      color: #6082b6;
+      text-decoration: underline;
+    }
   }
 }
 
 .errorContainer {
   padding: 10px;
-  border: 1px red solid;
+  border: 1px solid red;
   color: red;
   background: #ffe0de;
   border-radius: 8px;
@@ -47,5 +55,36 @@
   .errorMessage {
     margin-left: 10px;
     align-self: center;
+  }
+}
+
+/* Dark mode overrides */
+:global(body.dark-mode) {
+  .app {
+    background-color: #121212;
+    color: #e0e0e0;
+    transition: background-color 0.3s, color 0.3s;
+
+    .titleContainer {
+      .title {
+        color: #ffffff;
+      }
+      .subtitle {
+        color: #cccccc;
+      }
+      .subtitle:last-child {
+        color: #80cbc4;
+      }
+    }
+  }
+
+  .errorContainer {
+    background: #4a1f1f;
+    border-color: #ff6b6b;
+    color: #ffb3b3;
+
+    .errorMessage {
+      color: #ffb3b3;
+    }
   }
 }

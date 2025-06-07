@@ -1,6 +1,10 @@
+$app-bg-light: #ffffff;
+$app-bg-dark: #121212;
+
 .app {
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s, color 0.3s;
 
   .titleContainer {
     margin-top: 30px;
@@ -22,6 +26,7 @@
       font-weight: bold;
       align-self: center;
       margin-bottom: 20px;
+      color: #000;
     }
 
     .subtitle {
@@ -57,6 +62,7 @@
   .inputLabel {
     font-size: 18px;
     margin-bottom: 10px;
+    color: #000;
   }
 
   .formController {
@@ -66,14 +72,11 @@
       margin-bottom: 20px;
     }
 
-    .emailInput {
-      border-radius: 8px;
-      color: #676A6A;
-    }
-
+    .emailInput,
     .passwordInput {
       border-radius: 8px;
-      color: #676A6A;
+      color: #676a6a;
+      background-color: #fff;
     }
 
     .invalidEmailText {
@@ -105,6 +108,7 @@
 
     .redirectHintText {
       font-size: 18px;
+      color: #000;
     }
 
     .redirectText {
@@ -140,3 +144,80 @@
   }
 }
 
+/* Dark mode overrides */
+:global(body.dark-mode) {
+  .app {
+    background-color: $app-bg-dark;
+    color: #e0e0e0;
+    transition: background-color 0.3s, color 0.3s;
+
+    .titleContainer {
+      .title {
+        color: #ffffff;
+      }
+      .subtitle {
+        color: #cccccc;
+      }
+    }
+  }
+
+  .errorContainer {
+    background: #4a1f1f;
+    border-color: #ff6b6b;
+    color: #ffb3b3;
+
+    .errorMessage {
+      color: #ffb3b3;
+    }
+  }
+
+  .form {
+    .inputLabel {
+      color: #e0e0e0;
+    }
+
+    .formController {
+      .emailInput,
+      .passwordInput {
+        background-color: #2a2a2a !important;
+        color: #ffffff !important;
+      }
+      :global(.MuiOutlinedInput-notchedOutline) {
+        border-color: #ffffff !important;
+      }
+      :global(.MuiInputBase-input::placeholder) {
+        color: rgba(255, 255, 255, 0.6) !important;
+      }
+    }
+
+    .passwordRuleText {
+      color: #bbbbbb;
+    }
+
+    .invalidPasswordText {
+      color: #ff8a80;
+    }
+
+    .redirectTextContainer {
+      .redirectHintText {
+        color: #e0e0e0;
+      }
+      .redirectText {
+        color: #80cbc4 !important;
+      }
+    }
+
+    .buttonContainer {
+      .button {
+        background: #5a8564;
+        color: #ffffff;
+      }
+      .button:disabled {
+        color: #809e8f;
+      }
+      :global(.MuiCircularProgress-root) {
+        color: #ffffff !important;
+      }
+    }
+  }
+}
