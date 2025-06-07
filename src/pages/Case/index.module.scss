@@ -2,9 +2,8 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-
-  // height: 800px; 100%
-  // margin: 0 1rem;
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s !important;
 
   .headerContainer {
     display: flex;
@@ -12,11 +11,11 @@
     height: 70px;
     align-items: center;
 
-    .header{
+    .header {
       margin-left: 5%;
       color: #303230;
       font-size: 28px;
-      font-weight: 400;
+      font-weight: 600;
     }
   }
 
@@ -30,7 +29,7 @@
       padding: 0 1rem;
       width: max-content;
       height: 32px;
-      color: #FFF;
+      color: #000;
       text-align: center;
       font-size: 11px;
       line-height: 300%;
@@ -51,8 +50,8 @@
       z-index: 1;
       background: var(--card-background);
 
+      /* Stronger contrast on titles */
       .subTitle {
-        // margin: 0 15px;
         font-size: 20px;
         font-style: normal;
         font-weight: 700;
@@ -62,20 +61,31 @@
       }
 
       .subTitleHighlight {
-        color: #7DAAA4;
+        color: #5C8A7F;
+      }
+
+      .subTitleText {
+        /* ensure the text itself is always readable */
+        color: #1F1F1F;
       }
 
       .content {
-        color: #303230;
+        color: #1F1F1F;
         margin: 0 15px;
         font-size: 20px;
         font-style: normal;
-        font-weight: 400;
-        line-height: 24px; /* 120% */
+        font-weight: 500;
+        line-height: 24px;
       }
 
       .contentTitle {
-        font-weight: 600;
+        font-weight: 700;
+        color: #1F1F1F;
+      }
+
+      .predictionScore {
+        font-weight: 700;
+        color: #1F1F1F;
       }
     }
 
@@ -93,6 +103,17 @@
       background: #AFFFCC;
     }
 
+    /* Restore bullet points and indentation */
+    ul {
+      list-style-type: disc;
+      list-style-position: inside;
+      padding-left: 1.5rem;
+      margin-block: 0 0;
+    }
+
+    .toggleButton {
+      color: #555;
+    }
   }
 
   .submitDiv {
@@ -101,21 +122,83 @@
     margin: 1rem 28px 2rem;
 
     .submit {
-      width: 128px;
+      width: auto;
       height: 38px;
       border-radius: 6px;
       background: #A8E3BD;
-      color: #303230;
+      color: #1F1F1F;
       text-align: center;
-      font-size: 10px;
-      font-weight: 500;
       letter-spacing: 0.55px;
       float: right;
     }
   }
+}
 
-  ul {
-    margin-block: 0 0
+:global(body.dark-mode) {
+  :global(#aim-ahead-layout) {
+    background-color: #121212 !important;
+    transition: background-color 0.3s, color 0.3s !important;
   }
 
+  .app {
+    background-color: #121212;
+    transition: background-color 0.3s, color 0.3s !important;
+
+    .headerContainer {
+      background: #2b2b2b;
+
+      .header {
+        color: #e0e0e0;
+      }
+    }
+
+    .container {
+      .title {
+        color: #f0f0f0;
+      }
+
+      .card {
+        background: var(--card-background);
+
+        .subTitle {
+          color: var(--sub-title-color);
+        }
+
+        .subTitleHighlight {
+          color: #88a099;
+        }
+
+        .subTitleText {
+          color: #e0e0e0;
+        }
+
+        .content {
+          color: #e0e0e0;
+        }
+
+        .contentTitle {
+          color: #ffffff;
+        }
+
+        .predictionScore {
+          color: #ffffff;
+        }
+      }
+
+      .highlightContent {
+        background: rgba(47, 128, 85, 0.3);
+      }
+    }
+
+    .submitDiv {
+      .submit {
+        background: #3a5a45;
+        color: #e0e0e0;
+      }
+    }
+
+    .toggleButton {
+      color: #e0e0e0;
+    }
+  }
 }

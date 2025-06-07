@@ -1,8 +1,64 @@
-# AugMed-app
+# The AugMed App (Frontend)
 
-# Getting Started with Create React App
+AugMed is a web application, built for the UNC-Chapel Hill DHEP Lab, that allows the lab to collect data from participants in a user-friendly way. The app is designed to be used on any devices, and it allows participants to answer questions about their judgements for cases with potential Colorectal Cancer (CRC). The app is built using React, and the backend API is built using Flask and Python.
+
+**Live Website**: **[https://augmed1.dhep.org/](https://augmed1.dhep.org/).**
+
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+![Cypress](https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white)
+![Redux](https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
+![Husky](https://img.shields.io/badge/Husky-6C7A89?style=for-the-badge&logo=husky&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+
+
+# Getting Started with the AugMed App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- You have a working installation of [Node.js](https://nodejs.org/) (version 14 or later).
+- You have [npm](https://www.npmjs.com/) (Node Package Manager) installed, which comes with Node.js.
+- You have access to the DHEP Lab's API and the necessary credentials to connect to it.
+- You have a code editor installed (e.g., [Visual Studio Code](https://code.visualstudio.com/)).
+- You have a web browser installed (e.g., Chrome, Firefox).
+- You have a tablet or device for testing the app, if applicable.
+
+## Installation
+
+1. **Clone the repository**:
+   Open your terminal and run the following command to clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+   
+2. **Navigate to the project directory**:
+
+    ```bash
+    cd AugMed-app
+    ```
+   
+3. **Install dependencies**:
+
+    Run the following command to install the required dependencies:
+    ```bash
+    npm install
+    ```
 
 ## Available Scripts
 

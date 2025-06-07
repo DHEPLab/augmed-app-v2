@@ -51,13 +51,15 @@ const LoginPage = () => {
           handelSubmit={handleLogin}
           passwordRegex={passwordRegex}
         />
-        <p
-          className={styles.titleContainer}
+        <div
+          className={`${styles.titleContainer} ${styles.moreButton}`}
           onClick={() => nav("/intro")}
-          style={{ cursor: "pointer", color: "#7B68EE", textDecoration: "underline" }}
+          role="button"
+          tabIndex={0}
+          onKeyPress={e => (e.key === 'Enter' || e.key === ' ') && nav("/intro")}
         >
           🚀 More About Us
-        </p>
+        </div>
       </div>
     </Layout>
   );

@@ -1,6 +1,8 @@
 .app {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 
   .titleContainer {
     display: flex;
@@ -8,11 +10,12 @@
     height: 70px;
     align-items: center;
 
-    .title{
+    .title {
       margin-left: 5%;
       color: #303230;
       font-size: 28px;
       font-weight: 400;
+      transition: color 0.3s;
     }
   }
 
@@ -24,12 +27,12 @@
 
     .hint {
       width: 80%;
-      color: #aaa;
+      color: #666666;
       margin-top: 16px;
       font-size: 14px;
+      transition: color 0.3s;
     }
   }
-
 }
 
 .empty {
@@ -42,6 +45,7 @@
 
   .emptyText {
     color: #3f403f;
+    transition: color 0.3s;
   }
 
   .icon {
@@ -49,6 +53,41 @@
     align-self: center;
     color: #a5a8a5;
     margin-bottom: 10px;
+    transition: color 0.3s;
   }
 }
 
+/* Dark mode overrides */
+:global(body.dark-mode) {
+  :global(#aim-ahead-layout) {
+    background-color: #121212 !important;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .app {
+    transition: background-color 0.3s, color 0.3s;
+
+    .titleContainer {
+      background: #2C2C2C;
+
+      .title {
+        color: #E0E0E0;
+      }
+    }
+
+    .pendingCasesContainer {
+      .hint {
+        color: #CCCCCC;
+      }
+    }
+  }
+
+  .empty {
+    .emptyText {
+      color: #E0E0E0;
+    }
+    .icon {
+      color: #757575;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import classnames from "classnames";
+import { useTheme } from "@mui/material/styles";
 
 import testId from "../../utils/testId";
 
@@ -9,6 +10,7 @@ import styles from "./index.module.scss";
 const Layout = (props: React.PropsWithChildren<{ className?: string; style?: React.CSSProperties }>) => {
   const { pathname } = useLocation();
   const layoutRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     layoutRef.current?.scrollTo({
@@ -28,7 +30,11 @@ const Layout = (props: React.PropsWithChildren<{ className?: string; style?: Rea
         },
         props.className,
       )}
-      style={props.style}
+      style={{
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        ...props.style,
+      }}
     >
       {props.children}
     </div>

@@ -1,6 +1,8 @@
 .app {
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s, color 0.3s;
+  height: 100vh;
 
   .titleContainer {
     margin-top: 30px;
@@ -44,5 +46,32 @@
   .errorMessage {
     margin-left: 10px;
     align-self: center;
+  }
+}
+
+/* Dark mode overrides */
+:global(body.dark-mode) {
+  .app {
+    background-color: #121212;
+    color: #e0e0e0;
+
+    .titleContainer {
+      .title {
+        color: #ffffff;
+      }
+      .subtitle {
+        color: #bbbbbb;
+      }
+    }
+  }
+
+  .errorContainer {
+    background: #4a1f1f;
+    border-color: #ff6b6b;
+    color: #ffb3b3;
+
+    .errorMessage {
+      color: #ffb3b3;
+    }
   }
 }

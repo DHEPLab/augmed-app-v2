@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, generatePath } from "react-router-dom";
 import { Button } from "@mui/material";
 import SyncIcon from "@mui/icons-material/Sync";
 import { useRequest } from "ahooks";
@@ -31,6 +31,7 @@ const AnswerPage = () => {
 
   const [caseState] = useAtom(caseAtom);
   const [answerFormData, setAnswerFormData] = useAtom(answerFormAtom);
+  const [, setCaseState] = useAtom(caseAtom);
 
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
@@ -53,6 +54,12 @@ const AnswerPage = () => {
 
     setDisable(hasUnansweredRequiredFields);
   }, [answerFormData, configList]);
+
+  useEffect(() => {
+    if (!caseState.caseNumber) {
+      nav(generatePath(path.case, { caseConfigId }));
+    }
+  }, [caseState.caseNumber, nav, caseConfigId]);
 
   const onSubmit = () => {
     runAsync(caseConfigId, answerFormData, answerConfigId)
@@ -85,17 +92,27 @@ const AnswerPage = () => {
         }
       />
       <Loading loading={loading}>
+        {errorMsg && (
+          <div className={styles.errorContainer}>
+            <span>{errorMsg}</span>
+          </div>
+        )}
         {!configList || configList.length === 0 ? (
           <div className={styles.empty}>
             <UpcomingTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
-              Failed to show Answer page. Please contact <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
+              Failed to show Answer page. Please contact{" "}
+              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
               configure the answer page.
             </span>
           </div>
         ) : (
           <div className={styles.container}>
-            <Answer configList={configList} onInputChange={handleInputChange} answerFormData={answerFormData} />
+            <Answer
+              configList={configList}
+              onInputChange={handleInputChange}
+              answerFormData={answerFormData}
+            />
             <Button
               {...testId("answer-submit-btn")}
               className={styles.submit}

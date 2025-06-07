@@ -1,9 +1,17 @@
-.caseCardContainer{
+.caseCardContainer {
   width: 80%;
   padding: 20px;
   border-radius: 16px;
   background: #EDF6F3;
   margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
 
   .caseIdContainer {
     color: #303230;
@@ -28,5 +36,31 @@
     color: #303230;
     font-size: 16px;
     font-weight: 400;
+  }
+}
+
+/* Dark mode overrides */
+:global(body.dark-mode) {
+  .caseCardContainer {
+    background: #2a2a2a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    }
+
+    .caseIdContainer {
+      color: #e0e0e0;
+    }
+
+    .chiefComplaintContainer {
+      color: #80cbc4;
+    }
+
+    .patientInfoContainer {
+      color: #e0e0e0;
+    }
   }
 }

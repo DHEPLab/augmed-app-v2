@@ -1,22 +1,52 @@
 .container {
-    box-sizing: border-box;
-    border-radius: 14px;
-    background: #EDF6F3;
-    padding: 1em !important;
-    margin: 0 !important;
-    margin-bottom: 2em !important;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: #edf6f3;
+  padding: 1em !important;
+  margin: 0 !important;
+  margin-bottom: 2em !important;
 
+  .label {
+    display: block;
+    color: #333535 !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 10px;
+  }
+
+  .radioGroup {
+    margin-left: 1em;
+  }
+
+  :global(.MuiFormControlLabel-label.Mui-checked) {
+    color: inherit !important;
+  }
+}
+
+:global(body.dark-mode) {
+  .container {
+    background: #2a2a2a;
 
     .label {
-        display: block;
-        color: #333535;
-        font-size: 16px ;
-        font-weight: 400;
-        line-height: 24px;
-        margin-bottom: 10px;
+      color: #e0e0e0 !important;
     }
 
-    .radioGroup {
-        margin-left: 1em;
+    /* radio option text */
+    :global(.MuiFormControlLabel-label) {
+      color: #ffffff !important;
     }
+
+    :global(.MuiRadio-root.Mui-checked) {
+      color: #ffffff !important;
+    }
+
+    :global(.MuiRadio-root) {
+      color: #ffffff !important;
+    }
+    /* checked dot */
+    :global(.MuiRadio-root.Mui-checked) {
+      color: #ffffff !important;
+    }
+  }
 }

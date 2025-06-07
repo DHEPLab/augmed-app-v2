@@ -1,6 +1,37 @@
 .app {
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+
+  .moreButton {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    background-color: #7B68EE;
+    color: white !important;
+    font-weight: 500;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: #5a4dbb;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      background-color: #4a3a9a;
+      transform: translateY(0);
+    }
+
+    &:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+  }
 
   .titleContainer {
     margin-top: 30px;
@@ -21,6 +52,7 @@
       font-size: 28px;
       font-weight: bold;
       align-self: center;
+      color: #000;
     }
 
     .subtitle {
@@ -44,5 +76,37 @@
   .errorMessage {
     margin-left: 10px;
     align-self: center;
+  }
+}
+
+/* Dark mode overrides */
+:global(body.dark-mode) {
+  .app {
+    background-color: #121212;
+    color: #e0e0e0;
+
+    .titleContainer {
+      .title {
+        color: #ffffff;
+      }
+      .subtitle {
+        color: #bbbbbb;
+      }
+    }
+  }
+
+  .errorContainer {
+    background: #4a1f1f;
+    border-color: #ff6b6b;
+    color: #ffb3b3;
+
+    .errorMessage {
+      color: #ffb3b3;
+    }
+  }
+
+  :global(a[href="/intro"]),
+  .titleContainer + p {
+    color: #80cbc4 !important;
   }
 }
