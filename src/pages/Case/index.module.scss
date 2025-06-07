@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s !important;
 
   .headerContainer {
     display: flex;
@@ -29,7 +29,7 @@
       padding: 0 1rem;
       width: max-content;
       height: 32px;
-      color: #ffffff;
+      color: #000;
       text-align: center;
       font-size: 11px;
       line-height: 300%;
@@ -50,6 +50,7 @@
       z-index: 1;
       background: var(--card-background);
 
+      /* Stronger contrast on titles */
       .subTitle {
         font-size: 20px;
         font-style: normal;
@@ -61,6 +62,11 @@
 
       .subTitleHighlight {
         color: #5C8A7F;
+      }
+
+      .subTitleText {
+        /* ensure the text itself is always readable */
+        color: #1F1F1F;
       }
 
       .content {
@@ -96,6 +102,18 @@
     .highlightContent {
       background: #AFFFCC;
     }
+
+    /* Restore bullet points and indentation */
+    ul {
+      list-style-type: disc;
+      list-style-position: inside;
+      padding-left: 1.5rem;
+      margin-block: 0 0;
+    }
+
+    .toggleButton {
+      color: #555;
+    }
   }
 
   .submitDiv {
@@ -114,19 +132,17 @@
       float: right;
     }
   }
-
-  ul {
-    margin-block: 0 0;
-  }
-
-  .toggleButton {
-    color: #555;
-  }
 }
 
 :global(body.dark-mode) {
+  :global(#aim-ahead-layout) {
+    background-color: #121212 !important;
+    transition: background-color 0.3s, color 0.3s !important;
+  }
+
   .app {
     background-color: #121212;
+    transition: background-color 0.3s, color 0.3s !important;
 
     .headerContainer {
       background: #2b2b2b;
@@ -145,11 +161,15 @@
         background: var(--card-background);
 
         .subTitle {
-          color: #c0c0c0;
+          color: var(--sub-title-color);
         }
 
         .subTitleHighlight {
           color: #88a099;
+        }
+
+        .subTitleText {
+          color: #e0e0e0;
         }
 
         .content {

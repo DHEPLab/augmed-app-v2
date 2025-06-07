@@ -25,22 +25,22 @@ function isAllString(values: (string | TreeNode)[]) {
 const lightTheme = {
   green: {
     "--title-background": "#91C4A3",
-    "--sub-title-color": "#91C4A3",
+    "--sub-title-color": "#30543F",     // darker for contrast
     "--card-background": "#EDF8F1",
   },
   blue: {
     "--title-background": "#98D3CF",
-    "--sub-title-color": "#98D3CF",
+    "--sub-title-color": "#2D5E5B",
     "--card-background": "#E6F6F6",
   },
   default: {
     "--title-background": "#B1C7D1",
-    "--sub-title-color": "#B1C7D1",
+    "--sub-title-color": "#33494F",
     "--card-background": "#EFF6F6",
   },
   important: {
     "--title-background": "#F3D18E",
-    "--sub-title-color": "#98D3CF",
+    "--sub-title-color": "#8C6D4A",
     "--card-background": "#FDF3DE",
   },
 };
@@ -49,22 +49,22 @@ const lightTheme = {
 const darkTheme = {
   green: {
     "--title-background": "#315f47",
-    "--sub-title-color": "#58a17b",
+    "--sub-title-color": "#E0E0E0",
     "--card-background": "#223730",
   },
   blue: {
     "--title-background": "#2d5654",
-    "--sub-title-color": "#4ea9a4",
+    "--sub-title-color": "#E0E0E0",
     "--card-background": "#1f3232",
   },
   default: {
     "--title-background": "#2f4046",
-    "--sub-title-color": "#5a6e75",
+    "--sub-title-color": "#E0E0E0",
     "--card-background": "#1e2a2f",
   },
   important: {
     "--title-background": "#5a3e1b",
-    "--sub-title-color": "#8c6d4a",
+    "--sub-title-color": "#E0E0E0",
     "--card-background": "#3b2a1f",
   },
 };
@@ -239,6 +239,7 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   const themeMui = useTheme();
   const mode = themeMui.palette.mode as "light" | "dark";
   const styleVars = getColorStyle(index, mode) as React.CSSProperties;
+
   return (
     <div style={styleVars} className={styles.container} data-testid={data.key}>
       <div className={styles.title}>{data.key}</div>
