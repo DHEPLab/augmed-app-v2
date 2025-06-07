@@ -7,39 +7,48 @@ import { ErrorTwoTone, UpcomingTwoTone } from "@mui/icons-material";
 import Loading from "../../components/Loading";
 
 const useGetCaseList = () => {
-  const { loading, runAsync, data } = useRequest(getCaseList, {
+  const { loading, runAsync, data, error } = useRequest(getCaseList, {
     manual: false,
   });
-  return { loading, getCaseList: runAsync, cases: data?.data.data };
+  return {
+    loading,
+    getCaseList: runAsync,
+    cases: data?.data.data,
+    error,
+  };
 };
 
 const HomePage = () => {
-  const { loading, cases } = useGetCaseList();
+  const { loading, cases, error } = useGetCaseList();
 
   return (
     <Loading loading={loading}>
       <div className={styles.app}>
         <div className={styles.titleContainer}>
-          <span className={styles.title}>Pending Case</span>
+          <span className={styles.title}>Pending Cases</span>
         </div>
-        {cases?.length === 0 ? (
+
+        {error ? (
+          <div className={styles.empty}>
+            <ErrorTwoTone className={styles.icon} />
+            <span className={styles.emptyText}>
+              {(error as any).response?.data?.message || error.message ||
+                "An unexpected error occurred. Please check your connection and try again."}{" "}
+                      Please contact{" "}
+                      <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to resolve this issue.
+            </span>
+          </div>
+        ) : cases?.length === 0 ? (
           <div className={styles.empty}>
             <UpcomingTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
               There is no available case for you now. Please contact{" "}
-              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get new cases. Or try to refresh the page.
-            </span>
-          </div>
-        ) : !cases ? (
-          <div className={styles.empty}>
-            <ErrorTwoTone className={styles.icon} />
-            <span className={styles.emptyText}>
-              There is an unexpected error. Please check your internet and try again.
+              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get new cases. Or try to refresh the page...
             </span>
           </div>
         ) : (
           <div className={styles.pendingCasesContainer}>
-            {cases.map((item) => (
+            {cases?.map((item) => (
               <CaseCard
                 className={"caseCard"}
                 key={item.case_id}
@@ -52,7 +61,9 @@ const HomePage = () => {
                 }}
               />
             ))}
-            <p className={styles.hint}>Upon completing the above case, a new case may become available.</p>
+            <p className={styles.hint}>
+              Upon completing the above case, a new case may become available.
+            </p>
           </div>
         )}
       </div>

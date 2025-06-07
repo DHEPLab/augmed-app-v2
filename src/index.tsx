@@ -7,6 +7,7 @@ import {
   CssBaseline,
   IconButton,
   useTheme,
+  Tooltip,
 } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 import {
@@ -39,34 +40,36 @@ function DarkModeToggle({
   const isDark = mode === "dark";
 
   return (
-    <IconButton
-      onClick={() => setMode(isDark ? "light" : "dark")}
-      aria-label="toggle dark mode"
-      size="large"
-      sx={{
-        position: "fixed",
-        top: "50%",
-        right: 16,
-        transform: "translateY(-50%)",
-        zIndex: 1300,
-        width: 48,
-        height: 48,
-        borderRadius: "50%",
-        backgroundColor: isDark
-          ? theme.palette.grey[800]
-          : "#fff",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-        color: isDark ? "#fff" : theme.palette.text.primary,
-        transition: "background-color 0.3s",
-        "&:hover": {
+    <Tooltip title={isDark ? "Switch to light mode" : "Switch to dark mode"}>
+      <IconButton
+        onClick={() => setMode(isDark ? "light" : "dark")}
+        aria-label="toggle dark mode"
+        size="large"
+        sx={{
+          position: "fixed",
+          top: "50%",
+          right: 16,
+          transform: "translateY(-50%)",
+          zIndex: 1300,
+          width: 48,
+          height: 48,
+          borderRadius: "50%",
           backgroundColor: isDark
-            ? theme.palette.grey[700]
-            : "#f0f0f0",
-        },
-      }}
-    >
-      {isDark ? <SunIcon /> : <MoonIcon />}
-    </IconButton>
+            ? theme.palette.grey[800]
+            : "#fff",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          color: isDark ? "#fff" : theme.palette.text.primary,
+          transition: "background-color 0.3s",
+          "&:hover": {
+            backgroundColor: isDark
+              ? theme.palette.grey[700]
+              : "#f0f0f0",
+          },
+        }}
+      >
+        {isDark ? <SunIcon /> : <MoonIcon />}
+      </IconButton>
+    </Tooltip>
   );
 }
 

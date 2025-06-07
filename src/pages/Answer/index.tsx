@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, generatePath } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import SyncIcon from "@mui/icons-material/Sync";
 import { useRequest } from "ahooks";
 import { useAtom } from "jotai";
@@ -86,9 +86,13 @@ const AnswerPage = () => {
         name={caseState.personName}
         case={`Case ${caseState.caseNumber}`}
         suffix={
-          <Button variant="contained" color="secondary" onClick={() => nav(-1)}>
-            CASE REVIEW
-          </Button>
+          <Tooltip title="Go back to case review">
+            <span>
+              <Button variant="contained" color="secondary" onClick={() => nav(-1)}>
+                CASE REVIEW
+              </Button>
+            </span>
+          </Tooltip>
         }
       />
       <Loading loading={loading}>
@@ -113,16 +117,26 @@ const AnswerPage = () => {
               onInputChange={handleInputChange}
               answerFormData={answerFormData}
             />
-            <Button
-              {...testId("answer-submit-btn")}
-              className={styles.submit}
-              disabled={disable || submitLoading}
-              variant="contained"
-              onClick={onSubmit}
-              endIcon={submitLoading && <SyncIcon className={styles.spin} />}
+            <Tooltip
+              title={
+                disable
+                  ? "Please fill all required fields"
+                  : "Click to submit your answers"
+              }
             >
-              Submit
-            </Button>
+              <span>
+                <Button
+                  {...testId("answer-submit-btn")}
+                  className={styles.submit}
+                  disabled={disable || submitLoading}
+                  variant="contained"
+                  onClick={onSubmit}
+                  endIcon={submitLoading && <SyncIcon className={styles.spin} />}
+                >
+                  Submit
+                </Button>
+              </span>
+            </Tooltip>
           </div>
         )}
       </Loading>

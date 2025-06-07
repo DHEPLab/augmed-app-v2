@@ -295,7 +295,7 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
 const CasePage = () => {
   const nav = useNavigate();
   const { caseConfigId } = useParams() as { caseConfigId: string };
-  const { loading, data } = useRequest(() => getCaseDetail(caseConfigId));
+  const { loading, data, error } = useRequest(() => getCaseDetail(caseConfigId));
   const response = data?.data;
   const [caseState, setCaseState] = useAtom(caseAtom);
 
@@ -337,12 +337,22 @@ const CasePage = () => {
               </Button>
             </div>
           </>
+        ): error ? (
+          <div className={homeStyles.empty}>
+            <ErrorTwoTone className={homeStyles.icon} />
+            <span className={homeStyles.emptyText}>
+              {((error as any).response?.data?.message || error.message).replace(/\./g, "")}, or case not found. Please contact{" "}
+                          <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to resolve this issue.
+            </span>
+          </div>
         ) : (
           <div className={homeStyles.empty}>
             <ErrorTwoTone className={homeStyles.icon} />
             <span className={homeStyles.emptyText}>
               There is an unexpected error. Please check your internet and try
-              again.
+              again, or contact{" "}
+              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
+              resolve this issue.
             </span>
           </div>
         )}
