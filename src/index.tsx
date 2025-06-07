@@ -1,4 +1,3 @@
-// src/index.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, useRoutes } from "react-router-dom";
@@ -71,7 +70,25 @@ function DarkModeToggle({
 }
 
 function Root() {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  // Determine initial mode: saved in localStorage? else system preference
+  const getInitialMode = (): "light" | "dark" => {
+    const saved = localStorage.getItem("themeMode");
+    if (saved === "light" || saved === "dark") {
+      return saved;
+    }
+    return window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
+  const [mode, setMode] = useState<"light" | "dark">(getInitialMode);
+
+  // Persist to localStorage whenever mode changes
+  useEffect(() => {
+    localStorage.setItem("themeMode", mode);
+    document.body.classList.toggle("dark-mode", mode === "dark");
+  }, [mode]);
 
   const theme = useMemo(
     () =>
@@ -84,10 +101,6 @@ function Root() {
       }),
     [mode]
   );
-
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", mode === "dark");
-  }, [mode]);
 
   return (
     <ThemeProvider theme={theme}>
