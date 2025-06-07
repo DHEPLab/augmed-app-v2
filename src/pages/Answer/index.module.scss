@@ -134,6 +134,10 @@
     color: #e0e0e0 !important;
   }
 
+  :global(.MuiButton-containedSecondary:hover) {
+    background-color: #6a7e85 !important;
+  }
+
   .spin {
     color: #e0e0e0;
   }
