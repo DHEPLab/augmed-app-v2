@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0s;
   height: 100vh;
 
   .titleContainer {
@@ -86,7 +86,7 @@
   .app {
     background-color: #121212;
     color: #e0e0e0;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0s;
 
     .titleContainer {
       .title {

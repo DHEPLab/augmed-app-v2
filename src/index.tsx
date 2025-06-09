@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
+import type { OptionsGeneric } from '@popperjs/core';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import {
   createTheme,
@@ -33,37 +34,51 @@ function DarkModeToggle({
                           mode,
                           setMode,
                         }: {
-  mode: "light" | "dark";
-  setMode: (m: "light" | "dark") => void;
+  mode: 'light' | 'dark';
+  setMode: (m: 'light' | 'dark') => void;
 }) {
   const theme = useTheme();
-  const isDark = mode === "dark";
+  const isDark = mode === 'dark';
 
   return (
-    <Tooltip title={isDark ? "Switch to light mode" : "Switch to dark mode"}>
+    <Tooltip
+      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      PopperProps={{
+        disablePortal: true,
+        popperOptions: {
+          modifiers: [
+            {
+              name: 'preventOverflow',
+              options: {
+                boundariesElement: 'window',
+                padding: 8,
+              },
+            },
+          ] as OptionsGeneric<any>['modifiers'],
+        },
+      }}
+    >
       <IconButton
-        onClick={() => setMode(isDark ? "light" : "dark")}
+        onClick={() => setMode(isDark ? 'light' : 'dark')}
         aria-label="toggle dark mode"
         size="large"
         sx={{
-          position: "fixed",
-          top: "50%",
+          position: 'fixed',
+          top: '50%',
           right: 16,
-          transform: "translateY(-50%)",
+          transform: 'translateY(-50%)',
           zIndex: 1300,
           width: 48,
           height: 48,
-          borderRadius: "50%",
-          backgroundColor: isDark
-            ? theme.palette.grey[800]
-            : "#fff",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-          color: isDark ? "#fff" : theme.palette.text.primary,
-          transition: "background-color 0.3s",
-          "&:hover": {
+          borderRadius: '50%',
+          backgroundColor: isDark ? theme.palette.grey[800] : '#fff',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+          color: isDark ? '#fff' : theme.palette.text.primary,
+          transition: 'background-color 0.3s',
+          '&:hover': {
             backgroundColor: isDark
               ? theme.palette.grey[700]
-              : "#f0f0f0",
+              : '#f0f0f0',
           },
         }}
       >
