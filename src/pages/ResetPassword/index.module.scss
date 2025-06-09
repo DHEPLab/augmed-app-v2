@@ -4,7 +4,7 @@ $app-bg-dark: #121212;
 .app {
   display: flex;
   flex-direction: column;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0s;
 
   .titleContainer {
     margin-top: 30px;
@@ -149,7 +149,7 @@ $app-bg-dark: #121212;
   .app {
     background-color: $app-bg-dark;
     color: #e0e0e0;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0s;
 
     .titleContainer {
       .title {

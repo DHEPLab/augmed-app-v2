@@ -4,7 +4,7 @@ $mobile-point: 576px;
   height: 100%;
   overflow: hidden auto;
   min-width: 320px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0s;
 
   &.m {
     @media screen and (min-width: $mobile-point) {
