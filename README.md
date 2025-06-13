@@ -22,7 +22,12 @@ AugMed is a web application, built for the UNC-Chapel Hill DHEP Lab, that allows
 ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-
+![AWS RDS](https://img.shields.io/badge/AWS%20RDS-527FFF?style=for-the-badge&logo=amazon-rds&logoColor=white)
+![AWS S3](https://img.shields.io/badge/AWS%20S3-8C4FFF?style=for-the-badge&logo=amazon-s3&logoColor=white)
+![AWS ECR](https://img.shields.io/badge/AWS%20ECR-F58534?style=for-the-badge&logo=aws&logoColor=white)
+![AWS ECS](https://img.shields.io/badge/AWS%20ECS-FF5A00?style=for-the-badge&logo=aws&logoColor=white)
+![AWS ALB](https://img.shields.io/badge/AWS%20ALB-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
 
 # Getting Started with the AugMed App
 
@@ -96,6 +101,22 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Deployment
+
+The app is deployed using AWS services. The deployment process involves the following steps:
+
+1. **Build the app**: Run `npm run build` to create a production build of the app. This is automatically done in the CI/CD pipeline (GitHub Actions).
+2. **Push the build to AWS S3**: The build files are uploaded to an S3 bucket for hosting.
+3. **Deploy the app using AWS ECS**: The app is deployed to an ECS cluster using a Docker container.
+4. **Configure the load balancer**: An Application Load Balancer (ALB) is set up to route traffic to the ECS service.
+5. **Set up DNS**: The domain name is configured to point to the ALB.
+6. **Monitor the deployment**: The deployment is monitored to ensure that the app is running smoothly.
+7. **Update the app**: When updates are made to the app, the deployment process is repeated to push the changes to production.
+
+It also uses Terraform to manage the infrastructure as code.
+
+> **Visit the [augmed-infra repository](https://github.com/DHEPLab/augmed-infra) for more details on the infrastructure setup and deployment process.**
 
 ## Learn More
 
