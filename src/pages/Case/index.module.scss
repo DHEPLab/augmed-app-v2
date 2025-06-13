@@ -19,6 +19,16 @@
     }
   }
 
+  .crcScoreLine {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .crcThresholdLine {
+    font-size: 0.85em;
+    color: var(--sub-title-color);
+  }
+
   .container {
     margin: 0 28px;
 
