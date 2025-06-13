@@ -252,6 +252,8 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   );
 };
 
+const CRC_SECTION_KEY = "AI CRC Risk Score (<6: Low; 6-11: Medium; >11: High)";
+
 const ImportantCard = ({ data }: { data: TreeNode[] }) => {
   const themeMui = useTheme();
   const mode = themeMui.palette.mode as "light" | "dark";
@@ -267,6 +269,39 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
       <div className={classnames(styles.card, styles.firstCard)}>
         <div className={styles.content}>
           {data.map((item, index) => {
+            // 1) completely skip the section title
+            if (item.key === CRC_SECTION_KEY) {
+              // assume there's exactly one string value
+              const raw = (item.values as string[])[0];
+              // e.g. "Colorectal Cancer Score: 2"
+              const [, numStr] = raw.split(":");
+              const num = parseFloat(numStr.trim());
+              // compute label
+              let label = "";
+              if (!isNaN(num)) {
+                if (num < 6) label = "low";
+                else if (num <= 11) label = "med";
+                else label = "high";
+              }
+              // rename - just in case backend sends something different
+              const display = raw.replace(
+                "Colorectal Cancer Score",
+                "Colorectal Cancer Score"
+              );
+
+              return (
+                <div key={index} className={styles.crcContainer}>
+                  <div className={styles.crcScoreLine}>
+                    {display} {label && `(${label})`}
+                  </div>
+                  <div className={styles.crcThresholdLine}>
+                    <em>0-6: Low; 6-11: Med; 11-14: High</em>
+                  </div>
+                </div>
+              );
+            }
+
+            // 2) preserve your existing logic for everything else
             if (item.key === "ignore") {
               return (
                 <NestedContent
