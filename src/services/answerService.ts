@@ -6,14 +6,13 @@ import { postAnalytics, AnalyticsPayload } from "./metricsService";
 
 let _answerOpenTime: string | null = null;
 
-export const getAnswerPageConfig = async () => {
-  // mark answer‐open time once
+export const getAnswerPageConfig = async (caseConfigId: string) => {
   if (!_answerOpenTime) {
     _answerOpenTime = new Date().toISOString();
   }
   return await request<{ data: AnswerPageConfigResponse }>(
-    `/config/answer`,
-    { method: "GET" }
+    "/config/answer",
+    { method: "GET", params: { caseConfigId } }
   );
 };
 

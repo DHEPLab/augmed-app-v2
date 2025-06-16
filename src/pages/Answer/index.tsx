@@ -25,7 +25,10 @@ const AnswerPage = () => {
   const { loading: submitLoading, runAsync } = useRequest(saveAnswer, {
     manual: true,
   });
-  const { data, loading } = useRequest(getAnswerPageConfig, {});
+  const { data, loading } = useRequest(
+    () => getAnswerPageConfig(caseConfigId),
+    { refreshDeps: [caseConfigId] }
+  );
   const configList = data?.data.data.config ?? [];
   const answerConfigId = data?.data.data.id ?? "";
 
