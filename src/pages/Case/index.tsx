@@ -109,7 +109,7 @@ const NestedContent = ({
             if (!isNaN(rawNum)) {
               if (rawNum < 6) {
                 label = "Low";
-              } else if (rawNum <= 11) {
+              } else if (rawNum < 14) {
                 label = "Medium";
               } else {
                 label = "High";
@@ -295,7 +295,7 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
                     {display} {label && `(${label})`}
                   </div>
                   <div className={styles.crcThresholdLine}>
-                    <em>0-6: Low; 6-11: Med; 11-14: High</em>
+                    <em>0-6: Low; 6-14: Med; 14-18: High</em>
                   </div>
                 </div>
               );
