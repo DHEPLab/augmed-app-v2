@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, CircularProgress, FormControl, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 
 import styles from "./index.module.scss";
@@ -11,6 +11,7 @@ interface AuthenticationFormProps {
   handelSubmit: (email: string, password: string) => Promise<void>;
   slot?: React.ReactNode;
   onChange?: () => void;
+  initialEmail?: string;
 }
 
 export enum FormType {
@@ -18,11 +19,11 @@ export enum FormType {
   SignUp,
 }
 
-const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onChange }: AuthenticationFormProps) => {
+const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onChange, initialEmail = "" }: AuthenticationFormProps) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
 
@@ -71,6 +72,10 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    setEmail(initialEmail);
+  }, [initialEmail]);
 
   return (
     <form className={styles.form} onSubmit={validateAndSubmit} data-testid={"form"}>

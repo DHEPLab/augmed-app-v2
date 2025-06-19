@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import AuthenticationForm, { FormType } from "../../components/AuthenticationForm";
 import Layout from "../../components/Layout";
@@ -16,6 +16,8 @@ const SignUpPage = () => {
   const nav = useNavigate();
   const [slot, setSlot] = useState<React.ReactNode>(null);
   const { enqueueSnackbar } = useSnackbar();
+  const [search] = useSearchParams();
+  const urlEmail = search.get("email") ?? "";
 
   const handleSignUp = (email: string, password: string) =>
     signup(email, password)
@@ -60,6 +62,7 @@ const SignUpPage = () => {
           pageType={FormType.SignUp}
           handelSubmit={handleSignUp}
           passwordRegex={passwordPattern}
+          initialEmail={urlEmail}
         />
       </div>
     </Layout>
