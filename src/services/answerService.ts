@@ -1,14 +1,23 @@
 import { request } from "./api";
+import type { AxiosResponse } from "axios";
+import { getCaseOpenTime, clearCaseOpenTime } from "./caseService";
 import { AnswerPageConfigResponse } from "../types/answer";
 import { AnswerFormData } from "../state";
-import { getCaseOpenTime } from "./caseService";
 import { postAnalytics, AnalyticsPayload } from "./metricsService";
 
-let _answerOpenTime: string | null = null;
+const answerOpenTimes = new Map<string, string>();
 
-export const getAnswerPageConfig = async (caseConfigId: string) => {
-  if (!_answerOpenTime) {
-    _answerOpenTime = new Date().toISOString();
+/**
+ * Fetches the configuration for the answer page and records its open time.
+ *
+ * @param caseConfigId - The ID of the case configuration.
+ * @returns Promise resolving to AxiosResponse containing `{ data: AnswerPageConfigResponse }`
+ */
+export const getAnswerPageConfig = async (
+  caseConfigId: string
+): Promise<AxiosResponse<{ data: AnswerPageConfigResponse }>> => {
+  if (!answerOpenTimes.has(caseConfigId)) {
+    answerOpenTimes.set(caseConfigId, new Date().toISOString());
   }
   return await request<{ data: AnswerPageConfigResponse }>(
     "/config/answer",
@@ -16,31 +25,39 @@ export const getAnswerPageConfig = async (caseConfigId: string) => {
   );
 };
 
+/**
+ * Saves the user's answer, posts analytics, and clears timing records.
+ *
+ * @param caseConfigId - The ID of the case configuration.
+ * @param answerFormData - The data entered by the user.
+ * @param answerConfigId - The ID of the answer configuration.
+ * @returns Promise resolving to AxiosResponse for the save-answer request.
+ */
 export const saveAnswer = async (
   caseConfigId: string,
   answerFormData: AnswerFormData,
   answerConfigId: string
-) => {
-  // record submit time
+): Promise<AxiosResponse<any>> => {
   const submitTime = new Date().toISOString();
 
-  // first save the answer
-  const res = await request(`/answer/${caseConfigId}`, {
+  // First, save the answer
+  const saveRes = await request<any>(`/answer/${caseConfigId}`, {
     method: "POST",
-    data: {
-      answer: answerFormData,
-      answerConfigId,
-    },
+    data: { answer: answerFormData, answerConfigId },
   });
 
-  // then ship the analytics payload
+  // Then, ship the analytics payload
   const payload: AnalyticsPayload = {
     caseConfigId,
-    caseOpenTime:    getCaseOpenTime(),
-    answerOpenTime:  _answerOpenTime!,
-    answerSubmitTime:submitTime,
+    caseOpenTime:    getCaseOpenTime(caseConfigId),
+    answerOpenTime:  answerOpenTimes.get(caseConfigId)!,
+    answerSubmitTime: submitTime,
   };
   await postAnalytics(payload);
 
-  return res;
+  // Clean up stored times
+  answerOpenTimes.delete(caseConfigId);
+  clearCaseOpenTime(caseConfigId);
+
+  return saveRes;
 };
