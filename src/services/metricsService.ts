@@ -1,22 +1,25 @@
 import { request } from "./api";
+import type { AxiosResponse } from "axios";
 
+/**
+ * Payload containing analytics timestamps for a case.
+ */
 export interface AnalyticsPayload {
   caseConfigId:    string;
-  caseOpenTime:    string;  // ISO8601
-  answerOpenTime:  string;  // ISO8601
-  answerSubmitTime:string;  // ISO8601
+  caseOpenTime:    string;
+  answerOpenTime:  string;
+  answerSubmitTime:string;
 }
 
 /**
- * App now collects the user’s interaction timings—
- *  - when they opened the case review,
- *  - when they navigated to the answer page,
- *  - and when they submitted their answers—
- * and sends these metrics to the backend analytics endpoint.
+ * Sends analytics payload to the backend.
  *
- * @param payload AnalyticsPayload containing the caseConfigId and ISO-8601 timestamps
+ * @param payload - AnalyticsPayload containing the caseConfigId and ISO-8601 timestamps.
+ * @returns Promise resolving to AxiosResponse for the analytics request.
  */
-export const postAnalytics = async (payload: AnalyticsPayload) => {
+export const postAnalytics = async (
+  payload: AnalyticsPayload
+): Promise<AxiosResponse<any>> => {
   return await request("/analytics", {
     method: "POST",
     data: payload,
