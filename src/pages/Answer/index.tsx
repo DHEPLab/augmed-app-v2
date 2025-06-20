@@ -9,6 +9,7 @@ import { useSnackbar } from "notistack";
 import Answer from "../../components/Answer";
 import CaseTitle from "../../components/CaseTitle";
 import { getAnswerPageConfig, saveAnswer } from "../../services/answerService";
+import { getCaseDetail } from "../../services/caseService";
 import path from "../../routes/path";
 import testId from "../../utils/testId";
 
@@ -31,7 +32,13 @@ const AnswerPage = () => {
   );
   const configList = data?.data.data.config ?? [];
   const answerConfigId = data?.data.data.id ?? "";
-
+  const { data: reviewData, loading: reviewLoading } = useRequest(
+    () => getCaseDetail(caseConfigId),
+    { refreshDeps: [caseConfigId] }
+  );
+  const aiScoreShown = !!(
+    reviewData?.data.data.importantInfos?.length
+  );
   const [caseState] = useAtom(caseAtom);
   const [answerFormData, setAnswerFormData] = useAtom(answerFormAtom);
   const [, setCaseState] = useAtom(caseAtom);
@@ -65,7 +72,7 @@ const AnswerPage = () => {
   }, [caseState.caseNumber, nav, caseConfigId]);
 
   const onSubmit = () => {
-    runAsync(caseConfigId, answerFormData, answerConfigId)
+    runAsync(caseConfigId, answerFormData, answerConfigId, aiScoreShown)
       .then(() => {
         enqueueSnackbar("Case is submitted.", {
           anchorOrigin: {
