@@ -31,19 +31,21 @@ export const getAnswerPageConfig = async (
  * @param caseConfigId - The ID of the case configuration.
  * @param answerFormData - The data entered by the user.
  * @param answerConfigId - The ID of the answer configuration.
+ * @param aiScoreShown - Flag indicating if the AI score is shown.
  * @returns Promise resolving to AxiosResponse for the save-answer request.
  */
 export const saveAnswer = async (
   caseConfigId: string,
   answerFormData: AnswerFormData,
-  answerConfigId: string
+  answerConfigId: string,
+  aiScoreShown: boolean
 ): Promise<AxiosResponse<any>> => {
   const submitTime = new Date().toISOString();
 
   // First, save the answer
   const saveRes = await request<any>(`/answer/${caseConfigId}`, {
     method: "POST",
-    data: { answer: answerFormData, answerConfigId },
+    data: { answer: answerFormData, answerConfigId, aiScoreShown },
   });
 
   // Then, ship the analytics payload
