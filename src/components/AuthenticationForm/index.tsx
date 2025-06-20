@@ -19,7 +19,14 @@ export enum FormType {
   SignUp,
 }
 
-const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onChange, initialEmail = "" }: AuthenticationFormProps) => {
+const AuthenticationForm = ({
+  pageType,
+  passwordRegex,
+  handelSubmit,
+  slot,
+  onChange,
+  initialEmail = "",
+}: AuthenticationFormProps) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [showPassword, setShowPassword] = React.useState(false);

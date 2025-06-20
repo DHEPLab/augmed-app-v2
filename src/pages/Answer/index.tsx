@@ -26,19 +26,13 @@ const AnswerPage = () => {
   const { loading: submitLoading, runAsync } = useRequest(saveAnswer, {
     manual: true,
   });
-  const { data, loading } = useRequest(
-    () => getAnswerPageConfig(caseConfigId),
-    { refreshDeps: [caseConfigId] }
-  );
+  const { data, loading } = useRequest(() => getAnswerPageConfig(caseConfigId), { refreshDeps: [caseConfigId] });
   const configList = data?.data.data.config ?? [];
   const answerConfigId = data?.data.data.id ?? "";
-  const { data: reviewData, loading: reviewLoading } = useRequest(
-    () => getCaseDetail(caseConfigId),
-    { refreshDeps: [caseConfigId] }
-  );
-  const aiScoreShown = !!(
-    reviewData?.data.data.importantInfos?.length
-  );
+  const { data: reviewData, loading: reviewLoading } = useRequest(() => getCaseDetail(caseConfigId), {
+    refreshDeps: [caseConfigId],
+  });
+  const aiScoreShown = !!reviewData?.data.data.importantInfos?.length;
   const [caseState] = useAtom(caseAtom);
   const [answerFormData, setAnswerFormData] = useAtom(answerFormAtom);
   const [, setCaseState] = useAtom(caseAtom);
@@ -115,25 +109,14 @@ const AnswerPage = () => {
           <div className={styles.empty}>
             <UpcomingTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
-              Failed to show Answer page. Please contact{" "}
-              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
+              Failed to show Answer page. Please contact <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
               configure the answer page.
             </span>
           </div>
         ) : (
           <div className={styles.container}>
-            <Answer
-              configList={configList}
-              onInputChange={handleInputChange}
-              answerFormData={answerFormData}
-            />
-            <Tooltip
-              title={
-                disable
-                  ? "Please fill all required fields"
-                  : "Click to submit your answers"
-              }
-            >
+            <Answer configList={configList} onInputChange={handleInputChange} answerFormData={answerFormData} />
+            <Tooltip title={disable ? "Please fill all required fields" : "Click to submit your answers"}>
               <span>
                 <Button
                   {...testId("answer-submit-btn")}

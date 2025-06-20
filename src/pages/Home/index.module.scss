@@ -6,7 +6,7 @@
 
   .titleContainer {
     display: flex;
-    background: #A8E3BD;
+    background: #a8e3bd;
     height: 70px;
     align-items: center;
 
@@ -68,23 +68,23 @@
     transition: background-color 0s;
 
     .titleContainer {
-      background: #2C2C2C;
+      background: #2c2c2c;
 
       .title {
-        color: #E0E0E0;
+        color: #e0e0e0;
       }
     }
 
     .pendingCasesContainer {
       .hint {
-        color: #CCCCCC;
+        color: #cccccc;
       }
     }
   }
 
   .empty {
     .emptyText {
-      color: #E0E0E0;
+      color: #e0e0e0;
     }
     .icon {
       color: #757575;

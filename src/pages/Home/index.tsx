@@ -32,10 +32,10 @@ const HomePage = () => {
           <div className={styles.empty}>
             <ErrorTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
-              {(error as any).response?.data?.message || error.message ||
+              {(error as any).response?.data?.message ||
+                error.message ||
                 "An unexpected error occurred. Please check your connection and try again."}{" "}
-                      Please contact{" "}
-                      <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to resolve this issue.
+              Please contact <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to resolve this issue.
             </span>
           </div>
         ) : cases?.length === 0 ? (
@@ -61,9 +61,7 @@ const HomePage = () => {
                 }}
               />
             ))}
-            <p className={styles.hint}>
-              Upon completing the above case, a new case may become available.
-            </p>
+            <p className={styles.hint}>Upon completing the above case, a new case may become available.</p>
           </div>
         )}
       </div>

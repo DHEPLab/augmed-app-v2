@@ -1,20 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
-import type { OptionsGeneric } from '@popperjs/core';
+import type { OptionsGeneric } from "@popperjs/core";
 import { BrowserRouter, useRoutes } from "react-router-dom";
-import {
-  createTheme,
-  ThemeProvider,
-  CssBaseline,
-  IconButton,
-  useTheme,
-  Tooltip,
-} from "@mui/material";
+import { createTheme, ThemeProvider, CssBaseline, IconButton, useTheme, Tooltip } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import {
-  Brightness4 as MoonIcon,
-  Brightness7 as SunIcon,
-} from "@mui/icons-material";
+import { Brightness4 as MoonIcon, Brightness7 as SunIcon } from "@mui/icons-material";
 
 import reportWebVitals from "./reportWebVitals";
 import { routes } from "./routes";
@@ -22,63 +12,53 @@ import baseTheme from "./utils/theme/mui";
 
 import "./index.scss";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 function App() {
   return useRoutes(routes);
 }
 
-function DarkModeToggle({
-                          mode,
-                          setMode,
-                        }: {
-  mode: 'light' | 'dark';
-  setMode: (m: 'light' | 'dark') => void;
-}) {
+function DarkModeToggle({ mode, setMode }: { mode: "light" | "dark"; setMode: (m: "light" | "dark") => void }) {
   const theme = useTheme();
-  const isDark = mode === 'dark';
+  const isDark = mode === "dark";
 
   return (
     <Tooltip
-      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
       PopperProps={{
         disablePortal: true,
         popperOptions: {
           modifiers: [
             {
-              name: 'preventOverflow',
+              name: "preventOverflow",
               options: {
-                boundariesElement: 'window',
+                boundariesElement: "window",
                 padding: 8,
               },
             },
-          ] as OptionsGeneric<any>['modifiers'],
+          ] as OptionsGeneric<any>["modifiers"],
         },
       }}
     >
       <IconButton
-        onClick={() => setMode(isDark ? 'light' : 'dark')}
+        onClick={() => setMode(isDark ? "light" : "dark")}
         aria-label="toggle dark mode"
         size="large"
         sx={{
-          position: 'fixed',
-          top: '50%',
+          position: "fixed",
+          top: "50%",
           right: 16,
-          transform: 'translateY(-50%)',
+          transform: "translateY(-50%)",
           zIndex: 1300,
           width: 48,
           height: 48,
-          borderRadius: '50%',
-          backgroundColor: isDark ? theme.palette.grey[800] : '#fff',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-          color: isDark ? '#fff' : theme.palette.text.primary,
-          transition: 'background-color 0.3s',
-          '&:hover': {
-            backgroundColor: isDark
-              ? theme.palette.grey[700]
-              : '#f0f0f0',
+          borderRadius: "50%",
+          backgroundColor: isDark ? theme.palette.grey[800] : "#fff",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+          color: isDark ? "#fff" : theme.palette.text.primary,
+          transition: "background-color 0.3s",
+          "&:hover": {
+            backgroundColor: isDark ? theme.palette.grey[700] : "#f0f0f0",
           },
         }}
       >
@@ -95,10 +75,7 @@ function Root() {
     if (saved === "light" || saved === "dark") {
       return saved;
     }
-    return window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   };
 
   const [mode, setMode] = useState<"light" | "dark">(getInitialMode);
@@ -118,7 +95,7 @@ function Root() {
           mode,
         },
       }),
-    [mode]
+    [mode],
   );
 
   return (
@@ -137,7 +114,7 @@ function Root() {
 root.render(
   <React.StrictMode>
     <Root />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();

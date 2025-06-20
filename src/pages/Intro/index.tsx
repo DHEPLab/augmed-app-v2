@@ -53,11 +53,7 @@ const IntroPage = () => {
             🔹 Secure, encrypted servers store all information
           </p>
 
-          <button
-            type="button"
-            className={styles.backButton}
-            onClick={() => nav("/login")}
-          >
+          <button type="button" className={styles.backButton} onClick={() => nav("/login")}>
             🔙 Back to Log In Page
           </button>
         </div>
