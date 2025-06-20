@@ -51,15 +51,15 @@ const LoginPage = () => {
           handelSubmit={handleLogin}
           passwordRegex={passwordRegex}
         />
-        <div
-          className={`${styles.titleContainer} ${styles.moreButton}`}
-          onClick={() => nav("/intro")}
-          role="button"
-          tabIndex={0}
-          onKeyPress={(e) => (e.key === "Enter" || e.key === " ") && nav("/intro")}
-        >
-          🚀 More About Us
-        </div>
+        {/*<div*/}
+        {/*  className={`${styles.titleContainer} ${styles.moreButton}`}*/}
+        {/*  onClick={() => nav("/intro")}*/}
+        {/*  role="button"*/}
+        {/*  tabIndex={0}*/}
+        {/*  onKeyPress={(e) => (e.key === "Enter" || e.key === " ") && nav("/intro")}*/}
+        {/*>*/}
+        {/*  🚀 More About Us*/}
+        {/*</div>*/}
       </div>
     </Layout>
   );
