@@ -14,15 +14,15 @@ const answerOpenTimes = new Map<string, string>();
  * @returns Promise resolving to AxiosResponse containing `{ data: AnswerPageConfigResponse }`
  */
 export const getAnswerPageConfig = async (
-  caseConfigId: string
+  caseConfigId: string,
 ): Promise<AxiosResponse<{ data: AnswerPageConfigResponse }>> => {
   if (!answerOpenTimes.has(caseConfigId)) {
     answerOpenTimes.set(caseConfigId, new Date().toISOString());
   }
-  return await request<{ data: AnswerPageConfigResponse }>(
-    "/config/answer",
-    { method: "GET", params: { caseConfigId } }
-  );
+  return await request<{ data: AnswerPageConfigResponse }>("/config/answer", {
+    method: "GET",
+    params: { caseConfigId },
+  });
 };
 
 /**
@@ -38,7 +38,7 @@ export const saveAnswer = async (
   caseConfigId: string,
   answerFormData: AnswerFormData,
   answerConfigId: string,
-  aiScoreShown: boolean
+  aiScoreShown: boolean,
 ): Promise<AxiosResponse<any>> => {
   const submitTime = new Date().toISOString();
 
@@ -51,8 +51,8 @@ export const saveAnswer = async (
   // Then, ship the analytics payload
   const payload: AnalyticsPayload = {
     caseConfigId,
-    caseOpenTime:    getCaseOpenTime(caseConfigId),
-    answerOpenTime:  answerOpenTimes.get(caseConfigId)!,
+    caseOpenTime: getCaseOpenTime(caseConfigId),
+    answerOpenTime: answerOpenTimes.get(caseConfigId)!,
     answerSubmitTime: submitTime,
   };
   await postAnalytics(payload);

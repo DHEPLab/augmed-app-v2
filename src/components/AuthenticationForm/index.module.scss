@@ -23,7 +23,7 @@
     .emailInput,
     .passwordInput {
       border-radius: 8px;
-      color: #676A6A;
+      color: #676a6a;
     }
 
     .invalidEmailText {
@@ -62,18 +62,21 @@
       color: #303230;
       font-weight: 500;
       text-transform: none;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition:
+        background 0.2s,
+        transform 0.1s,
+        box-shadow 0.2s;
 
       &:hover:not(:disabled) {
         background: #7cc497;
         transform: translateY(-1px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
       }
       &:active:not(:disabled) {
         background: #6ab187;
         transform: translateY(0);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       &:focus {
         outline: 2px solid #5fa37c;
@@ -111,7 +114,9 @@
       border-radius: 20px;
       background: #1793bd;
       color: #fff;
-      transition: background 0.2s, transform 0.1s;
+      transition:
+        background 0.2s,
+        transform 0.1s;
 
       &:hover {
         background: #0f6c8a;
@@ -139,9 +144,9 @@
     .pwController {
       :global(.MuiIconButton-root) {
         color: #fff !important;
-        background: rgba(255,255,255,0.08);
+        background: rgba(255, 255, 255, 0.08);
         &:hover {
-          background-color: rgba(255,255,255,0.16) !important;
+          background-color: rgba(255, 255, 255, 0.16) !important;
         }
       }
     }
@@ -155,7 +160,7 @@
         color: #fff !important;
       }
       :global(.MuiInputBase-input::placeholder) {
-        color: rgba(255,255,255,0.6) !important;
+        color: rgba(255, 255, 255, 0.6) !important;
       }
       .invalidEmailText {
         color: #ff8a80;
@@ -174,11 +179,11 @@
       .button {
         background: #5a8564;
         color: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
         &:hover:not(:disabled) {
           background: #4e7757;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
         }
         &:active:not(:disabled) {
           background: #436b4c;

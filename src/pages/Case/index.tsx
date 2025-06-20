@@ -14,7 +14,7 @@ import { ErrorTwoTone } from "@mui/icons-material";
 import path from "../../routes/path";
 import CaseTitle from "../../components/CaseTitle";
 import { useAtom } from "jotai/index";
-import { caseAtom } from "../../state";
+import { caseAtom, caseSequenceAtom, caseIndexAtom, totalCasesAtom, currentRouteAtom } from "../../state";
 import { TreeNode } from "../../types/case";
 
 function isAllString(values: (string | TreeNode)[]) {
@@ -25,7 +25,7 @@ function isAllString(values: (string | TreeNode)[]) {
 const lightTheme = {
   green: {
     "--title-background": "#91C4A3",
-    "--sub-title-color": "#30543F",     // darker for contrast
+    "--sub-title-color": "#30543F", // darker for contrast
     "--card-background": "#EDF8F1",
   },
   blue: {
@@ -84,15 +84,7 @@ function getImportantStyle(mode: "light" | "dark") {
   return (mode === "dark" ? darkTheme : lightTheme).important;
 }
 
-const NestedContent = ({
-                         data,
-                         level,
-                         important = false,
-                       }: {
-  data: TreeNode;
-  level: number;
-  important?: boolean;
-}) => {
+const NestedContent = ({ data, level, important = false }: { data: TreeNode; level: number; important?: boolean }) => {
   if (!data.values) {
     return <span>{level === 2 && "none"}</span>;
   }
@@ -138,41 +130,20 @@ const NestedContent = ({
   return (
     <>
       {(data.values as TreeNode[]).map((item, index) => {
-        return (
-          <NestedSection
-            data={item}
-            key={index}
-            level={level + 1}
-            important={important}
-          />
-        );
+        return <NestedSection data={item} key={index} level={level + 1} important={important} />;
       })}
     </>
   );
 };
 
-const NestedSection = ({
-                         data,
-                         level,
-                         important,
-                       }: {
-  data: TreeNode;
-  level: number;
-  important: boolean;
-}) => {
+const NestedSection = ({ data, level, important }: { data: TreeNode; level: number; important: boolean }) => {
   const [open, setOpen] = useState(true);
   const highlight = !important && (data.style?.highlight || false);
   const inlineStyle = (
     typeof data.values === "string" ? { display: "inline-block" } : undefined
   ) as React.CSSProperties;
   return (
-    <div
-      className={classnames(
-        styles.nestedWrapper,
-        { [styles.highlightContent]: highlight }
-      )}
-      data-testid={data.key}
-    >
+    <div className={classnames(styles.nestedWrapper, { [styles.highlightContent]: highlight })} data-testid={data.key}>
       <span className={styles.contentTitle}>{data.key}</span>
       {!important && data.style?.collapse && (
         <IconButton
@@ -203,11 +174,7 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
   return (
     <div
       data-testid={data.key}
-      className={classnames(
-        styles.card,
-        { [styles.highlightContent]: highlight },
-        { [styles.firstCard]: index === 0 }
-      )}
+      className={classnames(styles.card, { [styles.highlightContent]: highlight }, { [styles.firstCard]: index === 0 })}
     >
       <div
         className={classnames(styles.subTitle, {
@@ -260,11 +227,7 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
   const styleVars = getImportantStyle(mode) as React.CSSProperties;
 
   return (
-    <div
-      style={styleVars}
-      className={styles.container}
-      data-testid="important-info"
-    >
+    <div style={styleVars} className={styles.container} data-testid="important-info">
       <div className={styles.title}>AI PREDICTION</div>
       <div className={classnames(styles.card, styles.firstCard)}>
         <div className={styles.content}>
@@ -284,10 +247,7 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
                 else label = "high";
               }
               // rename - just in case backend sends something different
-              const display = raw.replace(
-                "Colorectal Cancer Score",
-                "Colorectal Cancer Score"
-              );
+              const display = raw.replace("Colorectal Cancer Score", "Colorectal Cancer Score");
 
               return (
                 <div key={index} className={styles.crcContainer}>
@@ -303,23 +263,9 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
 
             // 2) preserve your existing logic for everything else
             if (item.key === "ignore") {
-              return (
-                <NestedContent
-                  data={item}
-                  level={2}
-                  key={index}
-                  important={true}
-                />
-              );
+              return <NestedContent data={item} level={2} key={index} important={true} />;
             }
-            return (
-              <NestedSection
-                data={item}
-                level={3}
-                important={true}
-                key={index}
-              />
-            );
+            return <NestedSection data={item} level={3} important={true} key={index} />;
           })}
         </div>
       </div>
@@ -327,19 +273,41 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
   );
 };
 
-const CasePage = () => {
+const CasePage: React.FC = () => {
   const nav = useNavigate();
-  const { caseConfigId } = useParams() as { caseConfigId: string };
-  const { loading, data, error } = useRequest(() => getCaseDetail(caseConfigId));
+  const { caseConfigId } = useParams<{ caseConfigId: string }>();
+  const { loading, data, error } = useRequest(() => getCaseDetail(caseConfigId!));
+  // `data` is the axios response; its `.data` is the payload containing `data`
   const response = data?.data;
-  const [caseState, setCaseState] = useAtom(caseAtom);
 
+  const [, setCaseState] = useAtom(caseAtom);
+
+  const [, setCurrentRoute] = useAtom(currentRouteAtom);
+  const [sequence, setSequence] = useAtom(caseSequenceAtom);
+  const [currentIdx] = useAtom(caseIndexAtom);
+  const [total] = useAtom(totalCasesAtom);
+
+  // Tell the atom which caseConfigId we're on
   useEffect(() => {
-    setCaseState({
-      caseNumber: response?.data.caseNumber,
-      personName: response?.data.personName,
-    });
+    setCurrentRoute({ caseConfigId });
+  }, [caseConfigId, setCurrentRoute]);
+
+  // When payload arrives, store raw fields
+  useEffect(() => {
+    if (response?.data) {
+      setCaseState({
+        personName: response.data.personName,
+        caseNumber: response.data.caseNumber,
+      });
+    }
   }, [response, setCaseState]);
+
+  // Append to sequence if new
+  useEffect(() => {
+    if (caseConfigId && response?.data && !sequence.includes(caseConfigId)) {
+      setSequence([...sequence, caseConfigId]);
+    }
+  }, [caseConfigId, response, sequence, setSequence]);
 
   return (
     <Loading loading={loading}>
@@ -347,47 +315,45 @@ const CasePage = () => {
         <div className={styles.headerContainer}>
           <span className={styles.header}>Case Review</span>
         </div>
+
         {response?.data ? (
           <>
             <CaseTitle
-              name={caseState.personName}
-              case={"Case " + caseState.caseNumber}
+              name={response.data.personName}
+              case={`Case ID ${response.data.caseNumber}`}
+              suffix={<span style={{ fontSize: "0.9em", color: "#666" }}>({currentIdx}/20)</span>}
             />
-            {response.data.importantInfos &&
-              response.data.importantInfos.length > 0 && (
-                <ImportantCard data={response.data.importantInfos} />
-              )}
+
+            {response.data.importantInfos?.length > 0 && <ImportantCard data={response.data.importantInfos} />}
+
             {(response.data.details as TreeNode[]).map((item, idx) => (
               <Section data={item} key={idx} index={idx} />
             ))}
+
             <div className={styles.submitDiv}>
               <Button
                 className={styles.submit}
                 variant="contained"
-                onClick={() =>
-                  nav(generatePath(path.answer, { caseConfigId }))
-                }
+                onClick={() => nav(generatePath(path.answer, { caseConfigId }))}
               >
                 Go to Answer Page
               </Button>
             </div>
           </>
-        ): error ? (
+        ) : error ? (
           <div className={homeStyles.empty}>
             <ErrorTwoTone className={homeStyles.icon} />
             <span className={homeStyles.emptyText}>
-              {((error as any).response?.data?.message || error.message).replace(/\./g, "")}, or case not found. Please contact{" "}
-                          <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to resolve this issue.
+              {((error as any).response?.data?.message || error.message).replace(/\./g, "")}, or case not found. Please
+              contact <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a>.
             </span>
           </div>
         ) : (
           <div className={homeStyles.empty}>
             <ErrorTwoTone className={homeStyles.icon} />
             <span className={homeStyles.emptyText}>
-              There is an unexpected error. Please check your internet and try
-              again, or contact{" "}
-              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
-              resolve this issue.
+              There is an unexpected error. Please check your internet and try again, or contact{" "}
+              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a>.
             </span>
           </div>
         )}

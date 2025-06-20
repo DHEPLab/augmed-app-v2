@@ -21,16 +21,11 @@ export const getCaseList = async (): Promise<AxiosResponse<{ data: ICase[] }>> =
  * @param caseConfigId - The ID of the case configuration.
  * @returns Promise resolving to AxiosResponse containing `{ data: CaseDetail }`
  */
-export const getCaseDetail = async (
-  caseConfigId: string
-): Promise<AxiosResponse<{ data: CaseDetail }>> => {
+export const getCaseDetail = async (caseConfigId: string): Promise<AxiosResponse<{ data: CaseDetail }>> => {
   if (!caseOpenTimes.has(caseConfigId)) {
     caseOpenTimes.set(caseConfigId, new Date().toISOString());
   }
-  return await request<{ data: CaseDetail }>(
-    `/case-reviews/${caseConfigId}`,
-    { method: "GET" }
-  );
+  return await request<{ data: CaseDetail }>(`/case-reviews/${caseConfigId}`, { method: "GET" });
 };
 
 /**

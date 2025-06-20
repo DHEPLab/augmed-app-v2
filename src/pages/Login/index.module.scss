@@ -8,14 +8,16 @@
     display: inline-block;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
-    background-color: #7B68EE;
+    background-color: #7b68ee;
     color: white !important;
     font-weight: 500;
     border-radius: 4px;
     text-align: center;
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition:
+      background-color 0.2s ease,
+      transform 0.1s ease;
 
     &:hover {
       background-color: #5a4dbb;

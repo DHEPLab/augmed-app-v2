@@ -56,7 +56,7 @@ const LoginPage = () => {
           onClick={() => nav("/intro")}
           role="button"
           tabIndex={0}
-          onKeyPress={e => (e.key === 'Enter' || e.key === ' ') && nav("/intro")}
+          onKeyPress={(e) => (e.key === "Enter" || e.key === " ") && nav("/intro")}
         >
           🚀 More About Us
         </div>
