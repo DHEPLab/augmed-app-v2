@@ -51,6 +51,8 @@ const LoginPage = () => {
           handelSubmit={handleLogin}
           passwordRegex={passwordRegex}
         />
+
+        {/* Uncomment the following lines if you want to add a link to the introduction page */}
         {/*<div*/}
         {/*  className={`${styles.titleContainer} ${styles.moreButton}`}*/}
         {/*  onClick={() => nav("/intro")}*/}
