@@ -29,9 +29,7 @@ AugMed is a web application, built for the UNC-Chapel Hill DHEP Lab, that allows
 ![AWS ALB](https://img.shields.io/badge/AWS%20ALB-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
 
-# Getting Started with the AugMed App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Backend Repository**: [DHEP Lab AugMed Backend](
 
 ## Prerequisites
 
