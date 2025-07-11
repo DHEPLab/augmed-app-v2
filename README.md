@@ -124,4 +124,4 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-
+Getting cases assigned: To get cases assigned, please contact the DHEP Lab team. Typically, cases are assigned to participants based on their availability and the lab's research needs.
