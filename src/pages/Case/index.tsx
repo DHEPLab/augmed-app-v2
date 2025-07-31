@@ -321,7 +321,7 @@ const CasePage: React.FC = () => {
             <CaseTitle
               name={response.data.personName}
               case={`Case ID ${response.data.caseNumber}`}
-              suffix={<span style={{ fontSize: "0.9em", color: "#666" }}>({currentIdx}/20)</span>}
+              suffix={<span style={{ fontSize: "0.9em", color: "#666" }}>({currentIdx}/100)</span>}
             />
 
             {response.data.importantInfos?.length > 0 && <ImportantCard data={response.data.importantInfos} />}
