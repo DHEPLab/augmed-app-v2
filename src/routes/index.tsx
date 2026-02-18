@@ -12,6 +12,8 @@ import Layout from "../components/Layout";
 import AnswerPage from "../pages/Answer";
 import ForgotPasswordPage from "../pages/ForgotPassword";
 import ResetPasswordPage from "../pages/ResetPassword";
+import AdminRlPage from "../pages/AdminRl";
+import AdminRlDetailPage from "../pages/AdminRlDetail";
 
 const AuthedAppLayout = withCredencial(Layout);
 
@@ -35,6 +37,14 @@ const routes: RouteObject[] = [
       {
         path: path.case,
         element: <CasePage />,
+      },
+      {
+        path: path.adminRl,
+        element: <AdminRlPage />,
+      },
+      {
+        path: path.adminRlDetail,
+        element: <AdminRlDetailPage />,
       },
     ],
   },

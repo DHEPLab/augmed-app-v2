@@ -7,6 +7,8 @@ export const path = {
   case: "/case-review/:caseConfigId",
   answer: "/answer/:caseConfigId",
   forgotPassword: "/forgot-password",
+  adminRl: "/admin/rl",
+  adminRlDetail: "/admin/rl/:experimentId",
 };
 
 export default path;
