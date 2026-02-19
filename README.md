@@ -4,6 +4,8 @@ AugMed is a web application, built for the UNC-Chapel Hill DHEP Lab, that allows
 
 **Live Website**: **[https://augmed1.dhep.org/](https://augmed1.dhep.org/).**
 
+> **Deploy the full platform:** This frontend is part of a multi-service platform. To deploy everything together (API + Frontend + RL + Database), see the [One-Click Deploy Guide](https://github.com/DHEPLab/augmed-api-v2/blob/main/docs/getting-started/one-click-deploy.md) in the API repository.
+
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)
