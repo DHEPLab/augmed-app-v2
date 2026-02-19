@@ -14,6 +14,7 @@ import ForgotPasswordPage from "../pages/ForgotPassword";
 import ResetPasswordPage from "../pages/ResetPassword";
 import AdminRlPage from "../pages/AdminRl";
 import AdminRlDetailPage from "../pages/AdminRlDetail";
+import ResearcherDataPage from "../pages/ResearcherData";
 
 const AuthedAppLayout = withCredencial(Layout);
 
@@ -45,6 +46,10 @@ const routes: RouteObject[] = [
       {
         path: path.adminRlDetail,
         element: <AdminRlDetailPage />,
+      },
+      {
+        path: path.researcherData,
+        element: <ResearcherDataPage />,
       },
     ],
   },

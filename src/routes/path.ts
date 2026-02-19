@@ -9,6 +9,7 @@ export const path = {
   forgotPassword: "/forgot-password",
   adminRl: "/admin/rl",
   adminRlDetail: "/admin/rl/:experimentId",
+  researcherData: "/admin/data",
 };
 
 export default path;
