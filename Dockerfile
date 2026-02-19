@@ -21,6 +21,13 @@ COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 # Remove default nginx config
 RUN rm -f /etc/nginx/conf.d/default.conf
 
+# Default env vars for envsubst (override at runtime)
+ENV PORT=8080
+ENV API_URL=http://localhost:3000
+
+# Only substitute PORT and API_URL — prevents collision with nginx vars ($uri, $host, etc.)
+ENV NGINX_ENVSUBST_FILTER=^(PORT|API_URL)$
+
 EXPOSE 8080
 
 # nginx:alpine image auto-runs envsubst on /etc/nginx/templates/*.template
