@@ -18,9 +18,20 @@ server {
         proxy_read_timeout 120s;
     }
 
-    # Proxy admin requests to the backend service
-    location /admin/ {
-        proxy_pass ${API_URL}/admin/;
+    # Proxy admin API requests to the backend service
+    # Only proxy paths that match actual API endpoints (/admin/config/*, /admin/users/*)
+    # Frontend routes like /admin/rl and /admin/upload are handled by React Router via / block
+    location /admin/config/ {
+        proxy_pass ${API_URL}/admin/config/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 120s;
+    }
+
+    location /admin/users {
+        proxy_pass ${API_URL}/admin/users;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
