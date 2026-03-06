@@ -1,11 +1,9 @@
-name: Build and Test AIM AHEAD APP
+name: Test AIM AHEAD APP
 
 on:
   push:
-    branches:
-      - '!main'
-      - '*'
-
+    branches-ignore:
+      - main
 jobs:
   lint:
     runs-on: ubuntu-latest
