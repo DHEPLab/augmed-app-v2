@@ -25,6 +25,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need full history so latest git tag is available
+
+      - name: Get latest semantic git tag
+        id: get_tag
+        run: |
+          TAG=$(git tag -l 'v*.*.*' --sort=-v:refname | head -n 1)
+          echo "latest=${TAG:-}" >> $GITHUB_OUTPUT
+          echo "Latest git tag: ${TAG:-<none>}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -46,8 +55,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=ref,event=tag
             type=semver,pattern=v{{version}}
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=${{ steps.get_tag.outputs.latest }},enable=${{ github.ref == 'refs/heads/main' && steps.get_tag.outputs.latest != '' }}
             type=sha,prefix=,format=short
 
       - name: Build and push Docker image
