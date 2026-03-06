@@ -44,6 +44,27 @@ Before you begin, ensure you have met the following requirements:
 - You have a web browser installed (e.g., Chrome, Firefox).
 - You have a tablet or device for testing the app, if applicable.
 
+## Quick Start
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   ```
+
+1. **Build container**:
+   ```bash
+   task build
+   ```
+1. **Spawn local service**:
+   ```bash
+   task up
+   ```
+
+1. **Tear down local service**:
+   ```bash
+   task down
+   ```
+
 ## Installation
 
 1. **Clone the repository**:
