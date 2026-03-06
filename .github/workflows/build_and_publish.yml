@@ -1,4 +1,4 @@
-name: Build and Push R Container
+name: Build and Push AIM AHEAD APP Container
 
 on:
   push:
@@ -46,7 +46,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=semver,pattern=v{{version}}
+            type=semver,pattern={{version}}
 
       - name: Build and push Docker image
         id: push
