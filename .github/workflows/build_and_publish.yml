@@ -1,8 +1,9 @@
-name: Build and Publish AIM AHEAD APP Container
+name: Build and Push R Container
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
@@ -46,8 +47,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=semver,pattern=v{{version}}
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            type=sha,prefix=,format=short
 
       - name: Build and push Docker image
         id: push
